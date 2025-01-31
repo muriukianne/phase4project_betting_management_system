@@ -1,11 +1,11 @@
-from models import db, User, Bet
+from models import db, User, Bet, TokenBlocklist
 from flask import jsonify, request, Blueprint
 from werkzeug.security import check_password_hash
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required
-from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import get_jwt_identity, get_jwt
 from datetime import datetime
-from datetime import timedelta
+from datetime import timedelta, timezone
 
 
 auth_bp = Blueprint("auth_bp", __name__)
@@ -70,4 +70,4 @@ def logout():
     now = datetime.now(timezone.utc)
     db.session.add(TokenBlocklist(jti=jti, created_at=now))
     db.session.commit()
-    return jsonify({"Success":"Logged out successfully"})
+    return jsonify({"success":"Logged out successfully"})
