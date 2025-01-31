@@ -1,0 +1,48 @@
+/* Ensure full height and width for the entire page */
+html, body {
+    height: 100%;            /* Full height for both html and body */
+    margin: 0;               /* Remove default margins */
+    padding: 0;              /* Remove default padding */
+    background-image: url('https://www.shutterstock.com/image-illustration/black-red-golden-four-aces-600nw-1999732052.jpg'); /* Set background image */
+    background-size: cover;  /* Ensure image covers the entire screen */
+    background-position: center; /* Position the image in the center */
+    color: white;            /* Default text color */
+    overflow-x: hidden;      /* Prevent horizontal scroll */
+    position: relative;      /* Allow absolute positioning inside body */
+  }
+  
+  /* Add a dimming overlay for the background image */
+  html::before {
+    content: '';             /* Required for the pseudo-element */
+    position: absolute;      /* Position relative to the body */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(205, 29, 40, 0.5); /* Darken the background */
+    z-index: -1;             /* Place overlay behind the content */
+  }
+  
+  /* Styling for the body to ensure circular edges and scrolling */
+  body {
+    display: flex;
+    justify-content: center;  /* Center everything horizontally */
+    align-items: center;      /* Center everything vertically */
+    border-radius: 30px;      /* Circular edges */
+    min-height: 100vh;        /* Full height of the viewport */
+    overflow-y: auto;         /* Allow vertical scrolling */
+    background-attachment: fixed; /* Ensure background stays fixed during scroll */
+  }
+  
+  /* Styling for the #root element (content wrapper) */
+  #root {
+    max-width: 1280px;        /* Max width for content */
+    margin: 4rem auto 0;      /* Increased top margin */
+    padding: 2rem;            /* Padding around content */
+    text-align: center;       /* Center text content */
+    width: 100%;              /* Ensure it takes full width inside the body */
+    height: auto;             /* Allow dynamic height based on content */
+    border-radius: 20px;      /* Slight rounding of content wrapper */
+    background-color: rgba(236, 16, 31, 0.5); /* Semi-transparent background */
+  }
+  
