@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
-// import { UserContext } from '../context/UserContext'
+import { UserContext } from '../context/UserContext'
 
 export default function Navbar() {
 
-  // const {logout,current_user} = useContext(UserContext)
+  const {logout,currentUser} = useContext(UserContext) 
+
+  console.log("Current User: ", currentUser);
 
 
   return (
@@ -23,7 +25,15 @@ export default function Navbar() {
             <Link to="/placebet" className="text-white text-lg hover:text-black hover:underline underline-black">Place Bet</Link>
             <Link to="/profile" className="text-white text-lg hover:text-black hover:underline underline-black">Profile</Link>
             <Link to="/about" className="text-white text-lg hover:text-black hover:underline underline-black">About</Link>
-            <Link onClick={() => logout()} className="text-white text-lg hover:text-black hover:underline underline-black">Logout</Link>
+            {/* <Link onClick={() => logout()} className="text-white text-lg hover:text-black hover:underline underline-black">Logout</Link> */}
+            {currentUser ? (
+              <Link
+                onClick={() => logout()} // Trigger the logout function
+                className="text-white text-lg hover:text-black hover:underline underline-black"
+              >
+                Logout
+              </Link>
+            ) : null}
           </div>
         </div>
       </nav>

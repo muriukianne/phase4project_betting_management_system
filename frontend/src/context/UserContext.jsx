@@ -60,7 +60,7 @@ const login = (email, password) => {
         Authorization: `Bearer ${authToken}`,
       },
     })
-      .then((resp) => resp.json())
+      .then((response) => response.json())
       .then((response) => {
         if (response.success) {
           sessionStorage.removeItem("token");
