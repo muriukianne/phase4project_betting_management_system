@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { BetContext } from '../context/BetContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function PlaceBet() {
   const { placeBet } = useContext(BetContext); // Get placeBet function from context
@@ -10,6 +11,8 @@ export default function PlaceBet() {
   const [amount, setAmount] = useState('');
   const [bet_date, setBetDate] = useState('');
   const [outcome, setOutcome] = useState('');
+
+  const navigate = useNavigate(); // Initialize navigate function
 
   // Fetch available matches
   useEffect(() => {
@@ -55,6 +58,7 @@ export default function PlaceBet() {
     // Ensure all fields are filled
     if (match_id && user_id && amount && bet_date && outcome) {
       placeBet(amount, outcome, match_id, bet_date, user_id);
+      navigate('/'); // Navigate to home page after placing the bet
     } else {
       console.error('All fields must be filled!');
     }
