@@ -2,6 +2,7 @@ from models import db, Bet, User, Match
 from flask import jsonify, request, Blueprint
 from datetime import datetime
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from datetime import datetime
 
 bet_bp = Blueprint("bet_bp", __name__)
 
@@ -30,12 +31,13 @@ def place_bet():
     if not match:
         return jsonify({"Error": "Match not found"}), 404
 
-    # Check if the user has enough balance to place the bet
-    # if user.balance < amount:
-    #     return jsonify({"Error": "Insufficient balance"}), 400
+    if isinstance(bet_date, str):
+        try:
+            bet_date = datetime.fromisoformat(bet_date.replace("Z", "+00:00"))  # Handles the 'Z' at the end (UTC timezone)
+        except ValueError:
+            return jsonify({"Error": "Invalid date format. Expected format: YYYY-MM-DDTHH:MM:SS+00:00"}), 400
 
-    # Deduct the bet amount from the user's balance
-    # user.balance -= amount
+
 
     # Create and add new bet
     new_bet = Bet(
