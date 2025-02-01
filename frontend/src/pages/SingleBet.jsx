@@ -33,7 +33,6 @@ export default function SingleBet() {
               <h1 className="bg-red-600 text-white py-2 px-4 rounded-md mb-2">{bet.match_name}</h1>
               <p className="bg-red-600 text-white py-2 px-4 rounded-md mb-2"><strong>Winning team: </strong> {bet.outcome}</p>
               <p className="bg-red-600 text-white py-2 px-4 rounded-md mb-2"><strong>Team you betted on:</strong> {bet.outcome}</p>
-              <p className="bg-red-600 text-white py-2 px-4 rounded-md mb-2"><strong>Team you betted on:</strong> {bet.outcome}</p>
               <p className="bg-red-600 text-white py-2 px-4 rounded-md mb-2"><strong>Amount Betted: </strong>${bet.amount}</p>
               <p className="bg-red-600 text-white py-2 px-4 rounded-md mb-2"><strong>Date of Bet: </strong>{new Date(bet.bet_date).toLocaleDateString()}</p>
               <p className="bg-red-600 text-white py-2 px-4 rounded-md mb-2">
