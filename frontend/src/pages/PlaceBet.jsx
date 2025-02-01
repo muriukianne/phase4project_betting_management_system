@@ -2,24 +2,23 @@ import React, { useContext, useState, useEffect } from 'react';
 import { BetContext } from '../context/BetContext';
 
 export default function PlaceBet() {
-  const { bets, placeBet } = useContext(BetContext);  // Fetch bets from context
-
-  const [matches, setMatches] = useState([]);  // Store the matches in state
-  const [users, setUsers] = useState([]);  // Store users in state
+  const { placeBet } = useContext(BetContext); // Get placeBet function from context
+  const [matches, setMatches] = useState([]); // Store matches in state
+  const [users, setUsers] = useState([]); // Store users in state
   const [match_id, setMatchId] = useState('');
   const [user_id, setUserId] = useState('');
   const [amount, setAmount] = useState('');
   const [bet_date, setBetDate] = useState('');
   const [outcome, setOutcome] = useState('');
 
-  // Fetch matches when component mounts
+  // Fetch available matches
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const response = await fetch('http://localhost:5000/matches');  // Adjust URL based on your Flask server
+        const response = await fetch('http://localhost:5000/matches');
         if (response.ok) {
           const data = await response.json();
-          setMatches(data);  // Set the matches in the state
+          setMatches(data);
         } else {
           console.error('Failed to fetch matches');
         }
@@ -28,17 +27,17 @@ export default function PlaceBet() {
       }
     };
 
-    fetchMatches();  // Call the function to fetch matches
+    fetchMatches();
   }, []);
 
-  // Fetch users when component mounts
+  // Fetch users for selecting a user to place a bet
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:5000/users/fetch_users');  // Adjust URL for users API
+        const response = await fetch('http://localhost:5000/users/fetch_users');
         if (response.ok) {
           const data = await response.json();
-          setUsers(data);  // Set the users in the state
+          setUsers(data);
         } else {
           console.error('Failed to fetch users');
         }
@@ -47,15 +46,15 @@ export default function PlaceBet() {
       }
     };
 
-    fetchUsers();  // Call the function to fetch users
+    fetchUsers();
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Make sure all fields are filled before calling placeBet
+    // Ensure all fields are filled
     if (match_id && user_id && amount && bet_date && outcome) {
-      placeBet(match_id, outcome, amount, bet_date, user_id);  // Place the bet with selected match_id
+      placeBet(amount, outcome, match_id, bet_date, user_id);
     } else {
       console.error('All fields must be filled!');
     }
@@ -64,8 +63,8 @@ export default function PlaceBet() {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
       <h2 className="text-2xl font-semibold text-black mb-6">Place a Bet</h2>
-      <form onSubmit={handleSubmit} className="space-y-6">
 
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="text-gray-600 text-sm mb-2 block">Select User</label>
           <select
@@ -148,8 +147,8 @@ export default function PlaceBet() {
             required
           >
             <option value="">Select Outcome</option>
-            <option value="win">Team_A_win</option>
-            <option value="lose">Team_B_win</option>
+            <option value="team_a_win">Team_A_win</option>
+            <option value="team_b_win">Team_B_win</option>
           </select>
         </div>
 
@@ -165,4 +164,3 @@ export default function PlaceBet() {
     </div>
   );
 }
-

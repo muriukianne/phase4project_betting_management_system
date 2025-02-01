@@ -1,29 +1,22 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext";
 
+// Create BetContext
 export const BetContext = createContext();
 
 export const BetProvider = ({ children }) => {
-
-  const navigate = useNavigate();
-  const { authToken } = useContext(UserContext)
-
+  const { authToken } = useContext(UserContext);
   const [bets, setBets] = useState([]);
-  const [onChange, setOnChange] = useState(true)
-
-  // MATCHES
-
-
-  // Fetch all bets
+  
+  // Fetch bets when authToken or other dependencies change
   useEffect(() => {
-    if (authToken) {  // Only fetch if authToken is available
+    if (authToken) {
       fetch('http://127.0.0.1:5000/bets', {
         method: "GET",
         headers: {
           'Content-type': 'application/json',
-          Authorization:` Bearer ${authToken}`,
+          Authorization: `Bearer ${authToken}`,
         },
       })
         .then((response) => response.json())
@@ -34,83 +27,36 @@ export const BetProvider = ({ children }) => {
           console.error("Error fetching bets:", error);
         });
     }
-  }, [authToken, onChange]); 
+  }, [authToken]);
 
   // Place a bet
-  const placeBet = ( amount, outcome, match_id, bet_date, user_id) => {
+  const placeBet = (amount, outcome, match_id, bet_date, user_id) => {
     fetch("http://127.0.0.1:5000/bets/place_bet", {
       method: "POST",
       headers: {
-       'Content-type': 'application/json',
-        Authorization:` Bearer ${authToken}`,
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
       },
-      body: JSON.stringify({
-        amount,
-        outcome,
-        match_id,
-        bet_date,
-        user_id
-      }),
+      body: JSON.stringify({ amount, outcome, match_id, bet_date, user_id }),
     })
-      .then((resp)=>resp.json())
-      .then((response)=>{
-        console.log(response);
-        
-        if(response.success){
-            toast.dismiss()
-            toast.success(response.success)
-            // setOnChange(!onChange)
+      .then((resp) => resp.json())
+      .then((response) => {
+        if (response.success) {
+          toast.success(response.success);
+        } else if (response.error) {
+          toast.error(response.error);
+        } else {
+          toast.error("Failed to add");
         }
-        else if(response.error){
-            toast.dismiss()
-            toast.error(response.error)
-
-        }
-        else{
-            toast.dismiss()
-            toast.error("Failed to add")
-
-        }
-      
-        
-    })
+      })
+      .catch((error) => {
+        console.error("Error placing bet:", error);
+        toast.error("An error occurred");
+      });
   };
-
-  // Update a bet
-  // const updateBet = (betId, amount, outcome, matchId, userId) => {
-  //   fetch(`https://your-flask-backend-url/bets/${betId}`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-type": "application/json",
-  //       Authorization: `Bearer ${authToken}`,
-  //     },
-  //     body: JSON.stringify({
-  //       amount,
-  //       outcome,
-  //       match_id: matchId,
-  //       user_id: userId,
-  //     }),
-  //   })
-  //     .then((resp) => resp.json())
-  //     .then((response) => {
-  //       if (response.message) {
-  //         alert(response.message);
-  //         fetchBets(); // Re-fetch bets after updating
-  //       } else {
-  //         alert("Failed to update bet");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("An error occurred while updating the bet", error);
-  //       alert("An error occurred while updating the bet");
-  //     });
-  // };
 
   // Delete a bet
   const deleteBet = (id) => {
-    console.log("Deleting bet with ID:", id); // Debugging line
-
-    
     fetch(`http://127.0.0.1:5000/bets/${id}`, {
       method: "DELETE",
       headers: {
@@ -118,37 +64,24 @@ export const BetProvider = ({ children }) => {
         Authorization: `Bearer ${authToken}`,
       },
     })
-    .then((resp) => resp.json())
-    .then((response) => {
-      if (response.message) {
-        toast.dismiss();
-        toast.success(response.message);
-        setOnChange(!onChange);
-        navigate("/");
-      } else if (response.error) {
-        toast.dismiss();
-        toast.error(response.error);
-      } else {
-        toast.dismiss();
-        toast.error("Failed to delete");
-      }
-    })
-
-  };
-  
-  const data = {
-    bets,
-    setOnChange,
-    placeBet,
-    // updateBet,
-    deleteBet,
-
-    
-
+      .then((resp) => resp.json())
+      .then((response) => {
+        if (response.message) {
+          toast.success(response.message);
+          setBets((prevBets) => prevBets.filter((bet) => bet.id !== id));
+        } else {
+          toast.error("Failed to delete");
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting bet:", error);
+        toast.error("An error occurred");
+      });
   };
 
   return (
-  <BetContext.Provider value={data}>
-    {children}
-  </BetContext.Provider>);
+    <BetContext.Provider value={{ bets, placeBet, deleteBet }}>
+      {children}
+    </BetContext.Provider>
+  );
 };
