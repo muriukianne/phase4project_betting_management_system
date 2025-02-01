@@ -99,6 +99,7 @@ def fetch_bets():
     for bet in bets:
         bet_list.append({
             'id': bet.id,
+            'match_name': bet.match.name,
             'amount': bet.amount,
             'outcome': bet.outcome,
             'bet_date': bet.bet_date,
