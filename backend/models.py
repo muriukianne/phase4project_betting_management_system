@@ -13,7 +13,7 @@ class User(db.Model):
 
     # Define backref to create 'bets' as an attribute for accessing bets from the User model
     bets = db.relationship('Bet', backref='bet_user', lazy=True)
-    transactions = db.relationship('Transaction', backref='user', lazy=True)
+    transactions = db.relationship('Transaction', backref='user', lazy=True, cascade="all, delete")
 
 # Bet Model
 class Bet(db.Model):

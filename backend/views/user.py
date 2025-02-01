@@ -104,7 +104,7 @@ def update_user(user_id):
         if password != user.password:
             user.password = password
         db.session.commit()   
-        return jsonify({"Success":["User updated successfully"]}), 201
+        return jsonify({"success":["User updated successfully"]}), 201
 
     else:
         return jsonify({"Error":["User doesn't exists"]}), 200
@@ -117,10 +117,9 @@ def delete_users(user_id):
     if user:
         db.session.delete(user)
         db.session.commit()
-        return jsonify({"success":["User deleted successfully"]}), 200
-
+        return jsonify({"success": ["User deleted successfully"]}), 200
     else:
-        return jsonify({"error":["The user you are trying to delete doesn't exists"]}), 200
+        return jsonify({"error": ["The user you are trying to delete doesn't exist"]}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
