@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///betting.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://bettingdb_sjvo_user:UxHZp9eyEysfim6yVLZy81F2eFgtT1yp@dpg-cuftnqtsvqrc73ftppk0-a.oregon-postgres.render.com/bettingdb_sjvo'
 migrate = Migrate(app, db)
 db.init_app(app)
 
