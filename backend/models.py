@@ -8,7 +8,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), nullable=False)
-    password = db.Column(db.String(128), nullable=False)
+    password = db.Column(db.String(512), nullable=False)
     balance = db.Column(db.Float, nullable=True, default=0.0)
 
     # Define backref to create 'bets' as an attribute for accessing bets from the User model
