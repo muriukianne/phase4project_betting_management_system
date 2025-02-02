@@ -35,7 +35,7 @@ The Betting Management System that will help users effectively manage their acco
 * Delete: Users can delete their bets if they wish to cancel them.
 
 ##links
-* Flask Deployment Link - https://bettingmanagementsystem.vercel.app/login
+* Flask Deployment Link - https://bettingmanagementsystem.vercel.app/
 * Presentation - https://app.screencastify.com/v2/manage/videos/bNYoEq9KETSeEQoQp3oy
 
 ## Technologies Used
