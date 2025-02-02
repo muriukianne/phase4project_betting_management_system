@@ -85,3 +85,4 @@ export const BetProvider = ({ children }) => {
     </BetContext.Provider>
   );
 };
+
