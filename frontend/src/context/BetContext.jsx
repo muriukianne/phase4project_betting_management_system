@@ -12,7 +12,7 @@ export const BetProvider = ({ children }) => {
   // Fetch bets when authToken or other dependencies change
   useEffect(() => {
     if (authToken) {
-      fetch('http://127.0.0.1:5000/bets', {
+      fetch('https://phase4project-betting-management-system.onrender.com/bets', {
         method: "GET",
         headers: {
           'Content-type': 'application/json',
@@ -31,7 +31,7 @@ export const BetProvider = ({ children }) => {
 
   // Place a bet
   const placeBet = (amount, outcome, match_id, bet_date, user_id) => {
-    fetch("http://127.0.0.1:5000/bets/place_bet", {
+    fetch("https://phase4project-betting-management-system.onrender.com/bets/place_bet", {
       method: "POST",
       headers: {
         'Content-type': 'application/json',
@@ -57,7 +57,7 @@ export const BetProvider = ({ children }) => {
 
   // Delete a bet
   const deleteBet = (id) => {
-    fetch(`http://127.0.0.1:5000/bets/${id}`, {
+    fetch(`https://phase4project-betting-management-system.onrender.com/bets/${id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",

@@ -18,7 +18,7 @@ export default function PlaceBet() {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const response = await fetch('http://localhost:5000/matches');
+        const response = await fetch('https://phase4project-betting-management-system.onrender.com/matches');
         if (response.ok) {
           const data = await response.json();
           setMatches(data);
@@ -37,7 +37,7 @@ export default function PlaceBet() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:5000/users/fetch_users');
+        const response = await fetch('https://phase4project-betting-management-system.onrender.com/users/fetch_users');
         if (response.ok) {
           const data = await response.json();
           setUsers(data);

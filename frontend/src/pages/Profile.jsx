@@ -18,7 +18,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5000/users/single_user/${currentUser.id}`);
+        const response = await fetch(`https://phase4project-betting-management-system.onrender.com/users/single_user/${currentUser.id}`);
         const data = await response.json();
         if (response.ok) {
           setUserData(data);
@@ -90,7 +90,7 @@ export default function ProfilePage() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/transactions/add', {
+      const response = await fetch('https://phase4project-betting-management-system.onrender.com/transactions/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

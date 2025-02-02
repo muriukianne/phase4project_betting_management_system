@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
 //   // LOGIN function
 const login = (email, password) => {
     toast.loading("Logging you in ... ");
-    fetch("http://127.0.0.1:5000/login", {
+    fetch("https://phase4project-betting-management-system.onrender.com/login", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -25,7 +25,7 @@ const login = (email, password) => {
           sessionStorage.setItem("token", response.access_token);
           setAuthToken(response.access_token);
   
-      fetch("http://127.0.0.1:5000/current_user", {
+      fetch("https://phase4project-betting-management-system.onrender.com/current_user", {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -53,7 +53,7 @@ const login = (email, password) => {
 
   // LOGOUT function
   const logout = () => {
-    fetch("http://127.0.0.1:5000/logout", {
+    fetch("https://phase4project-betting-management-system.onrender.com/logout", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
@@ -88,7 +88,7 @@ const fetchCurrentUser = () =>
     {
 
 
-    fetch('http://127.0.0.1:5000/current_user',{
+    fetch('https://phase4project-betting-management-system.onrender.com/current_user',{
         method:"GET",
         headers: {
             'Content-type': 'application/json',
@@ -105,7 +105,7 @@ const fetchCurrentUser = () =>
 
   // CREATE User (sign up)
   const addUser = (username, email, password) => {
-    fetch("http://127.0.0.1:5000/users/add_user", {
+    fetch("https://phase4project-betting-management-system.onrender.com/users/add_user", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -140,7 +140,7 @@ const fetchCurrentUser = () =>
 
   // UPDATE User (change username, email, password)
   const updateUser = (userId, updatedData) => {
-    fetch(`http://127.0.0.1:5000/users/update_user/${userId}`, {
+    fetch(`https://phase4project-betting-management-system.onrender.com/users/update_user/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
@@ -162,7 +162,7 @@ const fetchCurrentUser = () =>
 
   // DELETE User
   const deleteUser = (userId) => {
-    fetch(`http://127.0.0.1:5000/users/delete_user/${userId}`, {
+    fetch(`https://phase4project-betting-management-system.onrender.com/users/delete_user/${userId}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
