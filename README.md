@@ -37,6 +37,8 @@ The Betting Management System that will help users effectively manage their acco
 ##links
 * Flask Deployment Link - https://bettingmanagementsystem.vercel.app/
 * Presentation - https://app.screencastify.com/v2/manage/videos/bNYoEq9KETSeEQoQp3oy
+* Backend Links - https://dashboard.render.com/d/dpg-cuftnqtsvqrc73ftppk0-a
+* https://dashboard.render.com/web/srv-cuftsudds78s73fp8v50
 
 ## Technologies Used
 ### Backend
